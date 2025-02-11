@@ -1,19 +1,90 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Sentiment Analysis</title>
-    </head>
-    <body>
-        <form method="POST">
-            <textarea name="user_text" rows="5"></textarea>
-            <input type="submit" value="Analyze Text">
-            
-        </form>
-        {% if sentiment %}
-                <p>Positive: {{ sentiment['pos'] * 100 }}%</p>
-                <p>Negative: {{ sentiment['neg'] * 100 }}%</p>
-                <p>Neutral: {{ sentiment['neu'] * 100 }}%</p>
-                <!-- add the negative, neutral and compound scores here-->
-            {% endif %}
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            max-width: 500px;
+            text-align: center;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: none;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            margin-top: 10px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background: #0056b3;
+        }
+        .results {
+            margin-top: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            max-width: 500px;
+            text-align: center;
+        }
+        .positive {
+            color: green;
+        }
+        .negative {
+            color: red;
+        }
+        .neutral {
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sentiment Analysis</h1>
+    <form method="POST">
+        <textarea name="user_text" rows="5" placeholder="Enter text to analyze..."></textarea>
+        <input type="submit" value="Analyze Text">
+    </form>
+
+    {% if sentiment %}
+    <div class="results">
+        <h2>Analysis Results</h2>
+        <p class="positive">Positive: {{ sentiment['pos'] * 100 }}%</p>
+        <p class="negative">Negative: {{ sentiment['neg'] * 100 }}%</p>
+        <p class="neutral">Neutral: {{ sentiment['neu'] * 100 }}%</p>
+        <p><strong>Keras Model Output:</strong> {{ sentiment['custom model positive'] }}</p>
+    </div>
+    {% endif %}
+</body>
 </html>
